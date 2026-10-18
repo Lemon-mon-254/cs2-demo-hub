@@ -1,0 +1,13 @@
+node_modules/
+dist/
+CS2Demos/
+*.log
+.DS_Store
+.env
+.env.*
+*.dem
+*.dem.info
+*.dem.bz2
+*.dem.gz
+*.download
+*.part

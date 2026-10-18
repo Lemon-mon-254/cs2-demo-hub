@@ -1,0 +1,125 @@
+{
+  "name": "cs2-demo-hub",
+  "version": "1.0.0",
+  "description": "CS2 demo downloader and one-click playback desktop app for Windows and Linux",
+  "homepage": "https://github.com/Lemon-mon-254/cs2-demo-hub",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lemon-mon-254/cs2-demo-hub.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Lemon-mon-254/cs2-demo-hub/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Lemon-mon-254",
+    "url": "https://github.com/Lemon-mon-254"
+  },
+  "bin": {
+    "cs2hub": "bin/cs2hub.js"
+  },
+  "main": "electron/main.js",
+  "desktopName": "cs2-demo-hub.desktop",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "start": "node bin/cs2hub.js ui",
+    "mock": "node bin/cs2hub.js ui --mock",
+    "desktop": "electron .",
+    "desktop:mock": "electron . --mock",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:linux": "electron-builder --linux",
+    "doctor": "node bin/cs2hub.js doctor",
+    "test": "node --test test"
+  },
+  "keywords": [
+    "cs2",
+    "counter-strike",
+    "demo",
+    "steam",
+    "replay"
+  ],
+  "dependencies": {
+    "csgo-sharecode": "^7.0.1",
+    "globaloffensive": "^3.3.0",
+    "qrcode": "^1.5.4",
+    "steam-session": "^1.9.4",
+    "steam-user": "^5.3.0",
+    "unbzip2-stream": "^1.4.3"
+  },
+  "devDependencies": {
+    "electron": "^44.9.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.cs2demohub.app",
+    "productName": "CS2 录像中心",
+    "artifactName": "CS2-Demo-Hub-${version}-${os}-${arch}.${ext}",
+    "asar": true,
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron/**/*",
+      "src/**/*",
+      "public/**/*",
+      "package.json",
+      "!test/**/*",
+      "!dist/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "build/icons",
+        "to": "icons"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "executableName": "CS2DemoHub"
+    },
+    "nsis": {
+      "artifactName": "CS2-Demo-Hub-${version}-setup.${ext}",
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "CS2 录像中心",
+      "uninstallDisplayName": "CS2 录像中心"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icons",
+      "category": "Utility",
+      "executableName": "cs2-demo-hub",
+      "syncDesktopName": true,
+      "artifactName": "CS2-Demo-Hub-${version}-${arch}.${ext}",
+      "synopsis": "CS2 比赛录像管理与一键播放",
+      "description": "同步 Steam 最近比赛、下载 CS2 录像并一键启动游戏播放。"
+    }
+  }
+}
